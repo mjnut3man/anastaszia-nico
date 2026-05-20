@@ -1,0 +1,9 @@
+.env
+.DS_Store
+__pycache__/
+*.pyc
+duplicates/
+videos/
+post.log
+# loose unorganized images in root
+stable_users_*
