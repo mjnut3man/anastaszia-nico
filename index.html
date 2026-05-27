@@ -4,289 +4,280 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anastaszia Nico</title>
-  <meta name="description" content="she walked in and the room adjusted 🖤" />
+  <meta name="description" content="your goth girl fantasy 🦇" />
   <meta property="og:title" content="Anastaszia Nico" />
-  <meta property="og:description" content="she walked in and the room adjusted 🖤" />
-  <meta property="og:image" content="https://res.cloudinary.com/dednjcasg/image/upload/w_600,h_600,c_fill,g_face,f_auto,q_auto/anastaszianico/POST_001" />
+  <meta property="og:description" content="your goth girl fantasy 🦇" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0b0b0b;
-      --surface: #141414;
+      --bg: #0d0a0b;
+      --surface: #1a1015;
       --border: rgba(255,255,255,0.07);
-      --text: #f0ede8;
-      --muted: rgba(240,237,232,0.45);
-      --accent: #c9a96e;
-      --accent-dim: rgba(201,169,110,0.15);
+      --text: #f2ece8;
+      --muted: rgba(242,236,232,0.45);
+      --rose: #c4687a;
+      --rose-dim: rgba(196,104,122,0.15);
+      --rose-border: rgba(196,104,122,0.28);
+      --gold: #d4a96a;
+      --gold-dim: rgba(212,169,106,0.14);
+      --gold-border: rgba(212,169,106,0.28);
     }
 
-    html, body {
-      height: 100%;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 40px 20px;
-      position: relative;
       overflow-x: hidden;
     }
 
-    /* Subtle grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
-    }
-
-    /* Ambient glow */
-    body::after {
-      content: '';
-      position: fixed;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .card {
+    /* ── HERO BANNER ── */
+    .hero {
       position: relative;
-      z-index: 1;
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
+      height: 72vh;
+      min-height: 400px;
+      max-height: 700px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      display: block;
+      filter: brightness(0.92) saturate(1.05);
+    }
+
+    /* soft fade from photo to page bg */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,10,11,0)   0%,
+        rgba(13,10,11,0)  40%,
+        rgba(13,10,11,0.55) 72%,
+        rgba(13,10,11,0.96) 92%,
+        rgba(13,10,11,1)  100%
+      );
+    }
+
+    /* name over the banner */
+    .hero-name {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-name .script {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(42px, 11vw, 64px);
+      color: #f2ece8;
+      line-height: 1;
+      text-shadow: 0 2px 24px rgba(13,10,11,0.7);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── CARD BODY ── */
+    .card {
+      width: 100%;
+      max-width: 480px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 28px;
-    }
-
-    /* Avatar */
-    .avatar-wrap {
-      position: relative;
-      width: 108px;
-      height: 108px;
-    }
-
-    .avatar-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      background: conic-gradient(
-        from 180deg,
-        #c9a96e,
-        #e8d5a8,
-        #9a7a4a,
-        #c9a96e
-      );
-      opacity: 0.8;
-    }
-
-    .avatar-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,169,110,0.2) 0%, transparent 70%);
-      filter: blur(8px);
-    }
-
-    .avatar {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--bg);
-      display: block;
-    }
-
-    /* Name + bio */
-    .identity {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .name {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      color: var(--text);
+      gap: 6px;
+      padding: 0 28px 56px;
     }
 
     .handle {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 400;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
 
     .bio {
-      font-size: 13.5px;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-top: 4px;
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(242,236,232,0.6);
+      text-align: center;
+      line-height: 1.5;
+      margin-top: 10px;
+      margin-bottom: 6px;
     }
 
-    /* Links */
+    /* thin ornamental divider */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 22px;
+      color: rgba(242,236,232,0.18);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,169,106,0.3), transparent);
+    }
+
+    /* ── LINK BUTTONS ── */
     .links {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 13px;
       width: 100%;
     }
 
     .link-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 11px;
+      gap: 13px;
       width: 100%;
-      padding: 16px 24px;
-      border-radius: 14px;
+      padding: 17px 22px;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
-      letter-spacing: 0.04em;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .link-btn:active {
-      transform: scale(0.97);
     }
 
     .link-btn:hover {
       transform: translateY(-2px);
     }
+    .link-btn:active {
+      transform: scale(0.97);
+    }
 
-    /* Instagram */
+    .link-btn .icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .btn-label { flex: 1; }
+
+    .btn-arrow {
+      font-size: 16px;
+      opacity: 0.35;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .link-btn:hover .btn-arrow {
+      opacity: 0.8;
+      transform: translateX(3px);
+    }
+
+    /* Instagram — soft rose */
     .btn-instagram {
-      background: var(--surface);
-      color: var(--text);
+      background: var(--rose-dim);
+      color: #e8a0ad;
+      border-color: var(--rose-border);
     }
-
     .btn-instagram:hover {
-      background: #1a1a1a;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      border-color: rgba(255,255,255,0.12);
+      background: rgba(196,104,122,0.22);
+      box-shadow: 0 8px 32px rgba(196,104,122,0.14);
+      border-color: rgba(196,104,122,0.45);
     }
 
-    .btn-instagram .icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    /* Fanvue */
+    /* Fanvue — warm gold */
     .btn-fanvue {
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-color: rgba(201,169,110,0.25);
+      background: var(--gold-dim);
+      color: #e0bc84;
+      border-color: var(--gold-border);
     }
-
     .btn-fanvue:hover {
-      background: rgba(201,169,110,0.22);
-      box-shadow: 0 8px 32px rgba(201,169,110,0.12);
-      border-color: rgba(201,169,110,0.4);
+      background: rgba(212,169,106,0.22);
+      box-shadow: 0 8px 32px rgba(212,169,106,0.13);
+      border-color: rgba(212,169,106,0.45);
     }
 
-    .btn-fanvue .icon {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-    }
-
-    /* Divider */
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* Footer */
+    /* ── FOOTER ── */
     .footer {
-      font-size: 11px;
-      color: rgba(240,237,232,0.2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 480px) {
-      .name { font-size: 24px; }
+      margin-top: 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(242,236,232,0.18);
     }
   </style>
 </head>
 <body>
+
+  <!-- BANNER -->
+  <div class="hero">
+    <img
+      class="hero-img"
+      src="stable_users_69f909dfac74210059bee7d0_wan27_image_1778719407_06c16f62.png"
+      alt="Anastaszia Nico"
+    />
+    <div class="hero-name">
+      <span class="script">Anastaszia Nico</span>
+    </div>
+  </div>
+
+  <!-- BODY -->
   <div class="card">
+    <p class="handle">@anastaszianico</p>
+    <p class="bio">your goth girl fantasy 🦇</p>
 
-    <div class="avatar-wrap">
-      <img
-        class="avatar"
-        src="https://res.cloudinary.com/dednjcasg/image/upload/w_216,h_216,c_fill,g_face,f_auto,q_auto/anastaszianico/POST_001"
-        alt="Anastaszia Nico"
-        width="108"
-        height="108"
-      />
-    </div>
-
-    <div class="identity">
-      <h1 class="name">Anastaszia Nico</h1>
-      <p class="handle">@anastaszianico</p>
-      <p class="bio">she walked in and the room adjusted 🖤</p>
-    </div>
+    <div class="ornament">✦</div>
 
     <div class="links">
 
-      <!-- Instagram -->
       <a class="link-btn btn-instagram" href="https://instagram.com/anastaszianico" target="_blank" rel="noopener">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <circle cx="12" cy="12" r="4"/>
           <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
         </svg>
-        Instagram
+        <span class="btn-label">Instagram</span>
+        <span class="btn-arrow">›</span>
       </a>
 
-      <!-- Fanvue -->
       <a class="link-btn btn-fanvue" href="https://fanvue.com/anastaszianico" target="_blank" rel="noopener">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
-        Exclusive Content
+        <span class="btn-label">Exclusive Content</span>
+        <span class="btn-arrow">›</span>
       </a>
 
     </div>
 
-    <div class="divider"></div>
-    <p class="footer">anastaszianico</p>
-
+    <p class="footer">anastaszianico &middot; all rights reserved</p>
   </div>
+
 </body>
 </html>
