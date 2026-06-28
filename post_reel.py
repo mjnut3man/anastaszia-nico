@@ -48,6 +48,11 @@ cloudinary.config(
 PROCESS_TIMEOUT_S = 360   # 6 minutes
 PROCESS_POLL_S    = 8
 
+# Cover frame: which moment of the video Instagram uses as the Reel thumbnail.
+# Default = 2000 ms (2.0s) so the cover skips the intro blur/effect on the first
+# frame. Override per-reel with "thumb_offset_ms" in the REEL_XXX.json sidecar.
+DEFAULT_THUMB_OFFSET_MS = 2000
+
 
 def find_next():
     """Return the next REEL_XXX.mp4 in the queue (alphabetical = order)."""
@@ -70,6 +75,18 @@ def get_caption(mp4_path):
     return ""
 
 
+def get_thumb_offset(mp4_path):
+    """Cover-frame offset in ms from the .json sidecar, or the default 2000."""
+    meta_path = mp4_path.with_suffix(".json")
+    if meta_path.exists():
+        data = json.loads(meta_path.read_text())
+        try:
+            return int(data.get("thumb_offset_ms", DEFAULT_THUMB_OFFSET_MS))
+        except (TypeError, ValueError):
+            return DEFAULT_THUMB_OFFSET_MS
+    return DEFAULT_THUMB_OFFSET_MS
+
+
 def upload(mp4_path):
     print(f"    Uploading {mp4_path.name} to Cloudinary (video)...")
     result = cloudinary.uploader.upload_large(
@@ -82,13 +99,14 @@ def upload(mp4_path):
     return result["secure_url"]
 
 
-def create_reel_container(video_url, caption):
+def create_reel_container(video_url, caption, thumb_offset_ms=DEFAULT_THUMB_OFFSET_MS):
     r = requests.post(
         f"{GRAPH}/{USER_ID}/media",
         data={
             "media_type": "REELS",
             "video_url": video_url,
             "caption": caption,
+            "thumb_offset": thumb_offset_ms,
             "share_to_feed": "true",
             "access_token": ACCESS_TOKEN,
         },
@@ -147,11 +165,13 @@ def run(target=None, preview=False):
         return
 
     caption = get_caption(mp4)
+    thumb_offset_ms = get_thumb_offset(mp4)
     print(f"  File:    {mp4.name}")
     print(f"  Caption: {caption.splitlines()[0] if caption else '(none)'}")
+    print(f"  Cover:   frame @ {thumb_offset_ms} ms (thumb_offset)")
 
     if preview:
-        print(f"\n  [PREVIEW — not posted]\n\n  Full caption:\n{caption}")
+        print(f"\n  [PREVIEW — not posted]\n\n  thumb_offset: {thumb_offset_ms} ms\n\n  Full caption:\n{caption}")
         return
 
     print()
@@ -159,7 +179,7 @@ def run(target=None, preview=False):
     print(f"    Cloudinary URL: {video_url}")
 
     print("  Creating Reel container...")
-    container_id = create_reel_container(video_url, caption)
+    container_id = create_reel_container(video_url, caption, thumb_offset_ms)
 
     print("  Waiting for Instagram to process the video...")
     wait_until_ready(container_id)
