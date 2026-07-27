@@ -161,8 +161,12 @@ def run(target=None, preview=False):
 
     mp4 = find_specific(target) if target else find_next()
     if not mp4:
-        print("  Nothing to post — reels-to-post/ is empty.")
-        return
+        print("  QUEUE EMPTY — no REEL_*.mp4 left in reels-to-post/.")
+        print("  Nothing was posted. Refill the queue to resume auto-posting.")
+        # Exit non-zero on purpose: a dry queue is a real problem that should
+        # surface as a failed run (and its notification email), not a silent
+        # no-op that lets the account quietly stop posting.
+        return 1
 
     caption = get_caption(mp4)
     thumb_offset_ms = get_thumb_offset(mp4)
@@ -198,4 +202,4 @@ if __name__ == "__main__":
     preview = "--preview" in args
     args = [a for a in args if a != "--preview"]
     target = args[0] if args else None
-    run(target=target, preview=preview)
+    sys.exit(run(target=target, preview=preview) or 0)

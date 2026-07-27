@@ -1,0 +1,3 @@
+# Keeps reels-to-post/ tracked by git even when the queue is empty.
+# Without this the directory vanishes from the repo after the last reel is
+# posted, and the auto-post workflow fails on `git add reels-to-post/`.

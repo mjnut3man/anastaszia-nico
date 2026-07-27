@@ -41,6 +41,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add reels-to-post/ reels-posted/
+          # Git does not track empty directories, so reels-to-post/ disappears
+          # from the checkout once the last queued reel is posted. Recreate both
+          # paths first — otherwise `git add` dies with "pathspec did not match".
+          mkdir -p reels-to-post reels-posted
+          git add -A reels-to-post reels-posted
           git diff --cached --quiet || git commit -m "auto: posted next reel [skip ci]"
           git push
